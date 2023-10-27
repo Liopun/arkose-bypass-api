@@ -1,6 +1,6 @@
 # arkose-bypass-api
 
-> ```token/ -> returns arkose token```
+> ```/token -> returns arkose token```
 
 Being used by leet-chatgpt-extension
 
