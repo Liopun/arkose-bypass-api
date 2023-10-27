@@ -1,8 +1,7 @@
 {
-    "functions": {
-      "api/token": {
-        "handler": "handler.Handler"
-      }
+  "build": {
+    "env": {
+      "GO_BUILD_FLAGS": "-ldflags '-s -w'"
     }
+  }
 }
-  
