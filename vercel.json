@@ -1,6 +1,6 @@
 {
     "builds": [
-      { "src": "main.go", "use": "@now/go" }
+      { "src": "main.go", "use": "@vercel/go" }
     ]
 }
   
