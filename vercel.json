@@ -1,6 +1,8 @@
 {
-    "builds": [
-      { "src": "main.go", "use": "@vercel/go" }
-    ]
+    "functions": {
+      "api/token": {
+        "handler": "handler.Handler"
+      }
+    }
 }
   

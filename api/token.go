@@ -2,35 +2,34 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/flyingpot/funcaptcha"
 )
 
-type Response struct {
-	Token string `json:"message,omitempty"`
-	Error string `json:"error,omitempty"`
+type ErrorResponse struct {
+	Error string `json:"error"`
+}
+
+type SuccessResponse struct {
+	Token string `json:"token"`
 }
 
 func Handler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	response := make(map[string]string)
-
+	// Attempt to get the token
 	token, err := funcaptcha.GetOpenAITokenV2()
 	if err != nil {
+		// Handle the error and send an error response
 		w.WriteHeader(http.StatusInternalServerError)
-		response["error"] = err.Error()
-	} else {
-		w.WriteHeader(http.StatusOK)
-		response["token"] = token
+		errorResponse := ErrorResponse{Error: err.Error()}
+		json.NewEncoder(w).Encode(errorResponse)
+		return
 	}
 
-	jsonResponse, err := json.Marshal(response)
-	if err != nil {
-		fmt.Println("Error happened in JSON marshal. Err:", err)
-	} else {
-		w.Write(jsonResponse)
-	}
+	// Send a success response with the token
+	w.WriteHeader(http.StatusOK)
+	successResponse := SuccessResponse{Token: token}
+	json.NewEncoder(w).Encode(successResponse)
 }
