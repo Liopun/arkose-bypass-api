@@ -1,4 +1,10 @@
 {
+
+  "git": {
+    "deploymentEnabled": {
+      "main": false
+    }
+  },
   "build": {
     "env": {
       "GO_BUILD_FLAGS": "-ldflags '-s -w'"
